@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# prisma ignore
+/prisma/migrations
+
 # Distribution / packaging
 .Python
 build/
