@@ -34,7 +34,7 @@ async def chat_handler(chat_request: ChatRequest):
 
     messages = [{"role": "system", "content": "You are a helpful assistant."}] + chat_request.messages
     # Azure Open AI takes the deployment name as the model name
-    model = 'gpt-3.5-turbo'
+    model = 'gpt-4o-mini'
 
     if chat_request.stream:
 
