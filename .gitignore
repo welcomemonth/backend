@@ -8,6 +8,7 @@ __pycache__/
 
 # prisma ignore
 /prisma/migrations
+/alembic
 
 # Distribution / packaging
 .Python

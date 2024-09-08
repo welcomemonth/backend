@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
-from app.schemas.article import ArticleCreate, ArticleResponse, CommentCreate, CommentResponse
-from app.models.article import Article, Comment
+from app.sql.schemas.article import ArticleCreate, ArticleResponse, CommentCreate, CommentResponse
+from app.sql.models.article import Article
+from app.sql.models.comment import Comment
 from app.routes.auth import get_current_user
 
 router = APIRouter()

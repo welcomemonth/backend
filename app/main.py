@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes import auth, article
-from app.prisma import connect, disconnect
+from app.sql.database import Base, engine
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -14,15 +16,6 @@ app.add_middleware(
     allow_headers=["*"],  # 允许的 HTTP 头
 )
 
-
-
-@app.on_event("startup")
-async def startup():
-    await connect()
-
-@app.on_event("shutdown")
-async def shutdown():
-    await disconnect()
 
 app.include_router(auth.router, prefix="/api")
 app.include_router(article.router, prefix="/api")
