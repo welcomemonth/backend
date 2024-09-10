@@ -1,0 +1,47 @@
+## 接口设计文档
+
+### 1. 外部接口
+
+#### 1.1 支付网关
+
+需要与以下支付服务提供商集成：
+- {payment_gateway_1}
+- {payment_gateway_2}
+
+#### 1.2 社交媒体登录
+
+支持以下社交媒体账号登录：
+- {social_media_login_1}
+- {social_media_login_2}
+
+### 2. 用户接口
+
+#### 2.1 界面设计
+
+界面设计应遵循以下设计规范：
+- {design_guidelines} 确保跨平台一致性
+- 响应式设计: 界面应自适应不同设备，包括桌面、平板和手机
+
+### 3. API 功能列表
+
+以下是产品必须实现的 API 接口功能需求：
+
+- **功能编号**: {feature_id_1}  
+  名称: {feature_name_1}  
+  描述: {feature_description_1}
+  
+- **功能编号**: {feature_id_2}  
+  名称: {feature_name_2}  
+  描述: {feature_description_2}
+
+### 4. 接口安全性
+
+#### 4.1 鉴权与授权
+
+API 的所有接口均需使用 {authentication_method} 进行用户身份验证。  
+权限控制应基于 {authorization_scheme}。
+
+#### 4.2 数据加密
+
+所有敏感数据应通过 {encryption_algorithm} 进行加密传输。
+

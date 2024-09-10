@@ -1,0 +1,53 @@
+## 项目需求文档 (PRD)
+
+项目名称: {project_name}  
+文档版本: {document_version}  
+编制日期: {creation_date}  
+编制人: {author_name}  
+目标发布日期: {target_release_date}
+
+## 1. 引言
+
+### 1.1 目的
+
+本文档旨在明确 {project_name} 的项目需求，包括业务需求、功能性需求、非功能性需求以及系统和操作需求。它将作为项目团队和所有利益相关者之间沟通的基石，确保项目目标的一致性和可实现性。
+
+### 1.2 背景
+
+{project_name} 是为了解决 {problem_statement}。该项目由 {sponsor} 发起，旨在通过 {technical_solution} 来达到 {objective}。项目的成功实施将对 {industry_or_business_area} 产生显著影响。
+
+### 1.3 定义、缩写和缩略语
+
+AP1: 应用程序编程接口  
+UI: 用户界面  
+UX: 用户体验  
+{other_terms}
+
+## 2. 项目概述
+
+### 2.1 产品视角
+
+{project_name} 将为用户提供 {key_features}，帮助他们 {solve_problem/improve_efficiency/increase_revenue}。我们的目标是打造一个 {reliable/easy_to_use/innovative} 的产品，以满足 {target_market} 的需求，并在 {competitive_environment} 中脱颖而出。
+
+### 2.2 产品功能
+
+本产品将提供以下核心功能：  
+- {feature_1}  
+- {feature_2}  
+- {feature_3}  
+- {more_features}
+
+### 2.3 用户类和特征
+
+主要用户群体包括：  
+- {user_group_1}: {user_group_description_1}  
+- {user_group_2}: {user_group_description_2}  
+- {user_group_3}: {user_group_description_3}
+
+## 3. 业务需求
+
+{project_name} 的完整业务需求请参考分文件：
+
+- [数据库配置文档](./database_configuration.md)
+- [接口设计文档](./api_design.md)
+
