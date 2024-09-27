@@ -3,6 +3,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 from llm.prompt import get_gen_prd_prompt
 from openai import OpenAI
+import asyncio
 import json
 import time
 import os
@@ -23,53 +24,54 @@ class ChatRequest(BaseModel):
 # 请求生成接口，需要传递项目名称，项目的简单描述
 class PrdRequest(BaseModel):
     project_name: str = Field(..., description="The name of the project")
-    project_description: str = Field(..., description="A detailed description of the project")
-    # 定义一个可选的流式输出参数，默认为 False
-    stream: bool = False
+    project_desc: str = Field(..., description="A detailed description of the project")
+    # 定义一个可选的流式输出参数，默认为 True
+    stream: bool = True
 
 
 @router.post("/generate")
 async def generate_handler(prd_request: PrdRequest):
     
-    prompt = get_gen_prd_prompt().format(project_name=prd_request.project_name, project_description=prd_request.project_description)
+    prompt = get_gen_prd_prompt().format(project_name=prd_request.project_name, project_description=prd_request.project_desc)
     messages = [{"role": "system", "content": "你是一个资深的产品经理，根据用户输入的项目名称和简单描述，生成一个详细的需求文档。"}]
     messages.append({"role": "system", "content": prompt})
     model = 'gpt-4o'
-    response = client.chat.completions.create(
+    async def response_stream():
+        chat_coroutine = client.chat.completions.create(
+            model=model,
+            messages=messages,
+            stream=True,
+        )
+        for event in chat_coroutine:
+            yield json.dumps(event.model_dump(), ensure_ascii=False) + "\n"
+
+    return StreamingResponse(response_stream())
+
+@router.post("/chat")
+async def chat_handler(chat_request: ChatRequest):
+
+    messages = [{"role": "system", "content": "You are a helpful assistant."}] + chat_request.messages
+    # Azure Open AI takes the deployment name as the model name
+    model = 'gpt-3.5-turbo'
+    
+    if chat_request.stream:
+        async def response_stream():
+            chat_coroutine = client.chat.completions.create(
+                model=model,
+                messages=messages,
+                stream=True,
+            )
+            for event in chat_coroutine:
+                yield json.dumps(event.model_dump(), ensure_ascii=False) + "\n"
+
+        return StreamingResponse(response_stream())
+    else:
+        response = client.chat.completions.create(
             model=model,
             messages=messages,
             stream=False,
-    )
-    return response.model_dump()
-    
-
-# @router.post("/chat")
-# async def chat_handler(chat_request: ChatRequest):
-
-#     messages = [{"role": "system", "content": "You are a helpful assistant."}] + chat_request.messages
-#     # Azure Open AI takes the deployment name as the model name
-#     model = 'gpt-3.5-turbo'
-
-#     if chat_request.stream:
-
-#         async def response_stream():
-#             chat_coroutine = client.chat.completions.create(
-#                 model=model,
-#                 messages=messages,
-#                 stream=True,
-#             )
-#             for event in chat_coroutine:
-#                 yield json.dumps(event.model_dump(), ensure_ascii=False) + "\n"
-
-#         return StreamingResponse(response_stream())
-#     else:
-#         response = client.chat.completions.create(
-#             model=model,
-#             messages=messages,
-#             stream=False,
-#         )
-#         return response.model_dump()
-    
+        )
+        return response.model_dump()
     
 # 写一个获取推文内容的接口
 @router.get("/tweets")

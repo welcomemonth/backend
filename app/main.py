@@ -13,7 +13,7 @@ app = FastAPI(docs_url=None, redoc_url=None)
 # 配置 CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4201", "http://localhost:4200"],  # 允许的源
+    allow_origins=["http://localhost:4201", "http://localhost:4200",'http://localhost:5173'],  # 允许的源
     allow_credentials=True,
     allow_methods=["*"],  # 允许的 HTTP 方法
     allow_headers=["*"],  # 允许的 HTTP 头
