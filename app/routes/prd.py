@@ -27,7 +27,7 @@ class PrdRequest(BaseModel):
     project_desc: str = Field(..., description="A detailed description of the project")
     # 定义一个可选的流式输出参数，默认为 True
     stream: bool = True
-
+## ceshmain
 
 @router.post("/generate")
 async def generate_handler(prd_request: PrdRequest):
